@@ -14,4 +14,4 @@ struct leafcipher{
 #endif
 
 void outputFile(int argc, char** argv, Cipher* codelist);
-void inputFile(int argc, char** argv, Cipher* codelist);
+void inputFile(int argc, char** argv);

@@ -4,7 +4,7 @@
 #include <limits.h>
 #include "encode.h"
 #include "../include/encode.h"
-
+#include "assert.h"
 #define NSYMBOLS 256
 
 
@@ -44,9 +44,9 @@ static void count_symbols(const char *filename)
     /*
       write a code for counting
     */
-    char* buf = (char*)malloc(sizeof(char) * 1000000);
+    unsigned char* buf = (unsigned char*)malloc(sizeof(unsigned char) * 1000000);
     for (int i = 0; i < 1000000; i++) {
-        size_t rsize = fread(&buf[i], sizeof(char), 1, fp);
+        size_t rsize = fread(&buf[i], sizeof(unsigned char), 1, fp);
         if (rsize == 0) {
             buf[i] = '\0';
             printf("%d Byte read\n", i);
@@ -152,9 +152,8 @@ void traverse_tree(const int depth, const Node *np, Cipher* codelist)
     static int wordlengthSoFar = 0;
     static int wordKindSoFar = 0;
     static int counterPart = 0;
-    static char encoded[128] = "0";
+    static char encoded[64] = "0";
     
-    char* codes[30];
 
     if (np->left == NULL && np->right == NULL) {
         hwordlengthSoFar += depth * (np->count);
